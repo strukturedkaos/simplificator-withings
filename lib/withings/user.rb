@@ -1,5 +1,5 @@
 class Withings::User
-  attr_reader :short_name, :user_id, :birthdate, :fat_method, :first_name, :last_name, :gender, :oauth_token, :oauth_token_secret
+  attr_reader :short_name, :user_id, :birthdate, :fat_method, :first_name, :last_name, :gender, :oauth_token, :oauth_token_secret, :public_key
 
   def self.authenticate(user_id, oauth_token, oauth_token_secret)
     response = Withings::Connection.get_request('/user', oauth_token, oauth_token_secret, :action => :getbyuserid, :userid => user_id)
@@ -20,6 +20,7 @@ class Withings::User
     @fat_method = params['fatmethod']
     @oauth_token = params['oauth_token']
     @oauth_token_secret = params['oauth_token_secret']
+    @public_key = params['public_key']
   end
   
   def subscribe_notification(callback_url, description, device = SCALE)
